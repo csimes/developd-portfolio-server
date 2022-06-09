@@ -12,6 +12,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    projectUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    githubUrl: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   });
   return Project;
 };
