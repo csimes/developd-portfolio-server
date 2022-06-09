@@ -1,32 +1,28 @@
-const Express = require("express");
-const router = Express.Router();
-const { ProjectModel } = require("../models");
+const router = require("express").Router();
+const { Project } = require("../models");
+
+router.get("", (req, res) => {
+  res.send("Hello from the projects route");
+});
 
 router.post("/", async (req, res) => {
-  const { name, summary, imageUrl } = req.body.project;
-  const projectEntry = {
-    name,
-    summary,
-    imageUrl,
-  };
+  let { projectName, projectSummary, imageUrl } = req.body;
   try {
-    const newProject = await ProjectModel.create(projectEntry);
-    res.status(200).json(newProject);
+    const newProject = await Project.create({
+      projectName,
+      projectSummary,
+      imageUrl,
+    });
+    res.status(200).json({
+      message: "Project has been successfully created!",
+      newProject,
+    });
   } catch (err) {
-    res.status(500).json({ error: err });
+    res.status(500).json({
+      message: `Unable to create project. ${err}`,
+    });
   }
 });
 
-router.get("/", async (req, res) => {
-  const { id } = req.user;
-  try {
-    const projects = await ProjectModel.findAll({
-      where: {
-        id: id,
-      },
-    });
-    res.status(200).json(projects);
-  } catch (err) {
-    res.status(500).json({ error: err });
-  }
-});
+/* must use to connect middleware and avoid TypeError */
+module.exports = router;
