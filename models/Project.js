@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     projectName: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     projectSummary: {
       type: DataTypes.STRING,
@@ -15,11 +16,17 @@ module.exports = (sequelize, DataTypes) => {
     projectUrl: {
       type: DataTypes.STRING,
       allowNull: true,
+      unique: true,
     },
     githubUrl: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+      unique: true,
+    },
+    inProgress: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
   });
   return Project;
 };
