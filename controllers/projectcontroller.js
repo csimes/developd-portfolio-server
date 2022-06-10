@@ -95,9 +95,23 @@ router.put("/update/:id", async (req, res) => {
 });
 
 /* Delete */
-router.delete("/", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+  const deletedProject = {
+    where: {
+      id: id,
+    },
+  };
   try {
-  } catch (error) {}
+    await Project.destroy(deletedProject);
+    res.status(200).json({
+      message: `Project ${deletedProject} successfully deleted!`,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: `Unable to delete project. ${err}`,
+    });
+  }
 });
 
 /* must use to connect middleware and avoid TypeError */

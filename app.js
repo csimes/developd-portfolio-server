@@ -1,9 +1,8 @@
 require("dotenv").config();
 const express = require("express");
-const { skillController } = require("./controllers");
 const app = express();
 
-;(async () => {
+(async () => {
   app.use("/test", (req, res) => {
     res.send("This is a message from the test endpoint on the server!");
   });
@@ -16,7 +15,7 @@ const app = express();
   /* user controller? */
   /* jwt?/middleware */
   app.use("/project", controllers.projectController);
-  app.use("/skill", skillController)
+  app.use("/skill", controllers.skillController);
 
   app.listen(process.env.PORT, () => {
     console.log(`🍑Server🍑: App is listening 👂 at port: ${process.env.PORT}`);
